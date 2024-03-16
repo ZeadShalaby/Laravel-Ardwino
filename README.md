@@ -21,6 +21,7 @@
 
 * [About the Project](#about-the-project)
 * [Built With](#built-with)
+* [Started Ardwino](#started-ardwino)
 * [Getting Started](#getting-started)
     * [Prerequisites](#prerequisites)
     * [Installation](#installation)      
@@ -41,7 +42,37 @@ Laravel is a web application framework with expressive, elegant syntax. We belie
 **Miscellaneous:** Github
 Actions, [Build and push Docker images](https://github.com/marketplace/actions/build-and-push-docker-images), [Docker Login](https://github.com/marketplace/actions/docker-login)
 
-## Getting Started
+## Started Ardwino 
+
+* laravel
+
+```sh
+composer global require laravel/installer
+```
+
+Install dependencies
+
+```bash
+  composer install
+```
+
+Start the server and run watch
+
+```bash
+    php artisan serve
+```
+
+Start the url api (loacl host)
+
+```bash
+
+http://127.0.0.1:8000/api/ardwino
+
+```
+
+
+## Getting Started 
+
 
 To get a local copy up and running follow these simple example steps.
 
