@@ -32,4 +32,10 @@ Route::post('/ardwino', function (\Illuminate\Http\Request $request) {
         "Temperature: " . $request->get("temperature", "n/a") . '°C, ' .
         "Humidity: " . $request->get("humidity", "n/a") . '%'
     );
+    $msg = "Add in file arduino-log.txt :)... ";
+    return response()->json([
+        'status' => true,
+        'errNum' => "S000",
+        'msg' => $msg
+    ]);
 });
