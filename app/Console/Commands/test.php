@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Models\User;
 use Illuminate\Console\Command;
 
 class test extends Command
@@ -11,7 +12,7 @@ class test extends Command
      *
      * @var string
      */
-    protected $signature = 'app:test';
+    protected $signature = 'model:prune';
 
     /**
      * The console command description.
@@ -26,6 +27,12 @@ class test extends Command
     public function handle()
     {
         //
+         //todo collection of Revives
+         $users = User::get();
+         foreach ($users as $user) {
+             $user -> update(['name' => "zead shalaby"]);
+         }
+ 
         
     }
 }

@@ -2,7 +2,6 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Console\Scheduling\Schedule;
 use App\Console\Commands\expiration;
 
 Artisan::command('inspire', function () {
@@ -10,3 +9,4 @@ Artisan::command('inspire', function () {
 })->purpose('Display an inspiring quote')->hourly();
 
 
+Schedule::command('model:prune')->everyTenSeconds();
