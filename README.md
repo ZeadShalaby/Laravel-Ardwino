@@ -2,15 +2,15 @@
 
 <br/>
 <p align="center">
-  <a href="https://github.com/ZeadShalaby/API_REVIVE_SYSTEM">
-          <img src="https://laravel.com/assets/img/welcome/background.svg" alt="Logo" width="300" height="270">
+  <a href="https://github.com/ZeadShalaby/Laravel-Ardwino">
+          <img src="https://imgur.com/GmFjV39.png" alt="Logo" width="300" height="270">
   </a>
     
-<h3 align="center">API REVIVE SYSTEM</h3>
+<h3 align="center">Laravel Ardwino</h3>
 
   <p align="center">
-     Project Laravel | socialite (github,google) | Event Listener (View)  | use hardware | machine learning
-    <br/>
+    connection between Arduino Sensors and laravel
+      <br/>
     <br/>
   </p>
   
