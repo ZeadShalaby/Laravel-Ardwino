@@ -7,8 +7,8 @@
 #include <ESP8266WebServer.h>
 #include <ESP8266HTTPClient.h>
  
-const char *ssid = "-";  
-const char *password = "MOHAMMED66*";
+const char *ssid = "your name wifi";  
+const char *password = "your pass wifi";
  
 //Web/Server address to read/write from 
 const char *host = "http://127.0.0.1:8000/api";   //your IP/web server address
