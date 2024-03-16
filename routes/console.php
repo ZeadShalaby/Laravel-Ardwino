@@ -2,14 +2,11 @@
 
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Console\Scheduling\Schedule;
+use App\Console\Commands\expiration;
 
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote')->hourly();
 
 
-
-
-//! check Barter its End or not after daily
-//todo call the name of command to run code every day , hourly//
-Schedule::command('app:send-emails')->everyTenSeconds();
