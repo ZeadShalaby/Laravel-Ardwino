@@ -26,7 +26,7 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::post('/ardwino', function (\Illuminate\Http\Request $request) {
+Route::post('/arduino', function (\Illuminate\Http\Request $request) {
     Storage::append("arduino-log.txt",
         "Time: " . now()->format("Y-m-d H:i:s") . ', ' .
         "Temperature: " . $request->get("temperature", "n/a") . '°C, ' .
@@ -38,4 +38,41 @@ Route::post('/ardwino', function (\Illuminate\Http\Request $request) {
         'errNum' => "S000",
         'msg' => $msg
     ]);
+});
+
+Route::post('/arduino/second', function (\Illuminate\Http\Request $request) {
+
+
+if(!empty($request->sendval) && !empty($request->sendval2) )
+{
+	$temprature = $request->sendval;
+	$humidity  = $request->sendval2;
+     
+    Storage::append("arduino-log2.txt",
+    "Time: " . now()->format("Y-m-d H:i:s") . ', ' .
+    "Temperature: " . $temprature . '°C, ' .
+    "Humidity: " . $humidity . '%'
+    );
+    $msg = "Add in file arduino-log2.txt :)... ";
+    return response()->json([
+        'status' => true,
+        'errNum' => "S000",
+        'msg' => $msg
+    ]);
+}
+else{
+    return response()->json([
+        'status' => false,
+        'errNum' => "E000",
+        'msg' => "faild"
+    ]);
+}
+});
+
+Route::get('/arduino/json', function (\Illuminate\Http\Request $request) {
+
+    $file = file_get_contents(public_path('ardwinoget.json'));
+    $jsonData = json_decode($file, true);
+    return $jsonData;
+
 });
