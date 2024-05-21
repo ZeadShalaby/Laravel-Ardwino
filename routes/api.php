@@ -27,12 +27,15 @@ Route::get('/user', function (Request $request) {
 
 
 Route::post('/arduino', function (\Illuminate\Http\Request $request) {
-    Storage::append("arduino-log.txt",
-        "Time: " . now()->format("Y-m-d H:i:s") . ', ' .
-        "Temperature: " . $request->get("temperature", "n/a") . '°C, ' .
-        "Humidity: " . $request->get("humidity", "n/a") . '%'
-    );
-    $msg = "Add in file arduino-log.txt :)... ";
+    $log = new \App\Models\ArduinoLog();
+    $log->timestamp = now();
+    $log->temperature = $request->input('temperature');
+    $log->humidity = $request->input('humidity');
+    $log->co = $request->input('co');
+    $log->co2 = $request->input('co2');
+    $log->save();
+
+    $msg = "Data saved successfully in the database.";
     return response()->json([
         'status' => true,
         'errNum' => "S000",
@@ -76,3 +79,13 @@ Route::get('/arduino/json', function (\Illuminate\Http\Request $request) {
     return $jsonData;
 
 });
+
+Route::get('/arduino/json/{id}', function (\Illuminate\Http\Request $request) {
+
+    $file = file_get_contents(public_path('ardwinoget.json'));
+    $jsonData = json_decode($file, true);
+    
+    return $request-> id;
+
+});
+
