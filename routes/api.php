@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ArduinoLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -20,19 +21,24 @@ use Illuminate\Support\Facades\Storage;
 
 
 
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 
 
-Route::post('/arduino', function (\Illuminate\Http\Request $request) {
-    Storage::append("arduino-log.txt",
-        "Time: " . now()->format("Y-m-d H:i:s") . ', ' .
-        "Temperature: " . $request->get("temperature", "n/a") . '°C, ' .
-        "Humidity: " . $request->get("humidity", "n/a") . '%'
-    );
-    $msg = "Add in file arduino-log.txt :)... ";
+// ? insert data in database
+Route::post('/arduino', function (Request $request) {
+
+    $arduino = ArduinoLog::create([
+        'temperature'  => $request->temperature,
+        'humidity' =>$request->humidity,
+        'co' =>$request->co,
+        'co2' =>$request->co2,
+    ]);
+    
+    $msg = "Data saved successfully in the database.";
     return response()->json([
         'status' => true,
         'errNum' => "S000",
@@ -40,8 +46,9 @@ Route::post('/arduino', function (\Illuminate\Http\Request $request) {
     ]);
 });
 
-Route::post('/arduino/second', function (\Illuminate\Http\Request $request) {
 
+// ? insert data in file 
+Route::post('/arduino/second', function (\Illuminate\Http\Request $request) {
 
 if(!empty($request->sendval) && !empty($request->sendval2) )
 {
@@ -69,6 +76,7 @@ else{
 }
 });
 
+// ? return all data in this file
 Route::get('/arduino/json', function (\Illuminate\Http\Request $request) {
 
     $file = file_get_contents(public_path('ardwinoget.json'));
@@ -76,3 +84,14 @@ Route::get('/arduino/json', function (\Illuminate\Http\Request $request) {
     return $jsonData;
 
 });
+
+// ? return one element by id
+Route::get('/arduino/json/{id}', function (\Illuminate\Http\Request $request) {
+
+    $file = file_get_contents(public_path('ardwinoget.json'));
+    $jsonData = json_decode($file, true);
+    
+    return $request-> id;
+
+});
+
