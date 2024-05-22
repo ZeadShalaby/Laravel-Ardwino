@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('arduino_logs', function (Blueprint $table) {
             $table->id();
-            $table->dateTime('timestamp');
             $table->float('temperature')->nullable();
             $table->float('humidity')->nullable();
             $table->float('co')->nullable();

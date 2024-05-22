@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\ArduinoLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -20,21 +21,23 @@ use Illuminate\Support\Facades\Storage;
 
 
 
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
 
 
-Route::post('/arduino', function (\Illuminate\Http\Request $request) {
-    $log = new \App\Models\ArduinoLog();
-    $log->timestamp = now();
-    $log->temperature = $request->input('temperature');
-    $log->humidity = $request->input('humidity');
-    $log->co = $request->input('co');
-    $log->co2 = $request->input('co2');
-    $log->save();
+// ? insert data in database
+Route::post('/arduino', function (Request $request) {
 
+    $arduino = ArduinoLog::create([
+        'temperature'  => $request->temperature,
+        'humidity' =>$request->humidity,
+        'co' =>$request->co,
+        'co2' =>$request->co2,
+    ]);
+    
     $msg = "Data saved successfully in the database.";
     return response()->json([
         'status' => true,
@@ -43,8 +46,9 @@ Route::post('/arduino', function (\Illuminate\Http\Request $request) {
     ]);
 });
 
-Route::post('/arduino/second', function (\Illuminate\Http\Request $request) {
 
+// ? insert data in file 
+Route::post('/arduino/second', function (\Illuminate\Http\Request $request) {
 
 if(!empty($request->sendval) && !empty($request->sendval2) )
 {
@@ -72,6 +76,7 @@ else{
 }
 });
 
+// ? return all data in this file
 Route::get('/arduino/json', function (\Illuminate\Http\Request $request) {
 
     $file = file_get_contents(public_path('ardwinoget.json'));
@@ -80,6 +85,7 @@ Route::get('/arduino/json', function (\Illuminate\Http\Request $request) {
 
 });
 
+// ? return one element by id
 Route::get('/arduino/json/{id}', function (\Illuminate\Http\Request $request) {
 
     $file = file_get_contents(public_path('ardwinoget.json'));
